@@ -20,6 +20,7 @@ Route::post('/rdvs', 'RdvController@store');
 Route::post('/rdvs/{id}', 'RdvController@update');
 Route::delete('/rdvs/{rdv}', 'RdvController@destroy');
 
+Route::post('/rdvs/{id}/print', 'RdvImpressionController@print');
 
 
 
@@ -46,17 +47,25 @@ Route::get('/rdv/pdf/{id}', function ($id) {
     $r = RDV::find($id);
     $pdf = PDF::loadView('oneRdv', $r);
     // If you want to store the generated pdf to the server then you can use the store function
-    $pdf->save(storage_path().'_filename.pdf');
+    //$pdf->save(storage_path().'_filename.pdf');
     // Finally, you can download the file using download function
     return $pdf->download('customers.pdf');
 });
 
 Route::get('/rdv/{id}', function ($id) {
     
+
     $today= Carbon\Carbon::now()->format('Y-m-d');
-    $r = RDV::find($id);
+    $data1 = RDV::find($id);
     return view('oneRdv', [
-        'r'=>$r,
+        'object'=>$data1->object,
+        'date'=>$data1->date,
+        'time'=>$data1->time,
+        'created_at'=>$data1->created_at,
+        'id'=>$data1->id,
+        'updated_at'=>$data1->updated_at,
+       
+       
     ]);
 });
 

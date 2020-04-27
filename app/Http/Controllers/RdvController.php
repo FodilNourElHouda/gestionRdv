@@ -72,6 +72,7 @@ class RdvController extends Controller
     public function destroy(Request $request, $id)
     {
         RDV::findOrFail($id)->delete();
+        return redirect('/');
     }
     
     public function update(Request $request, $id)

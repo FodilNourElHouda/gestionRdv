@@ -13,7 +13,7 @@
                             <button type="button"  style="margin-top:5%" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
                             Ajouter RDV
                             </button>
-                        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal fade bd-example-modal-lg" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -55,12 +55,12 @@
                             </thead>
                             <tbody>
                                 @foreach ($rdv as $r)
-                                    <tr  class='clickable-row' data-href='/rdv/{{$r->id}}'>
-                                    <td class="cell100 column1">{{App\Patient::find($r->id)->name}} {{App\Patient::find($r->id)->firstName}}</td>
-                                    <td class="cell100 column2">{{ $r->date }}</td>
-                                    <td class="cell100 column3">{{ $r->time }}</td>
-                                    <td class="cell100 column4">{{ $r->object }}</td>
-                                    <td class="cell100 column5">information médicale</td>
+                                    <tr >
+                                    <td  class='clickable-row' data-href='/rdv/{{$r->id}}'>{{App\Patient::find($r->id)->name}} {{App\Patient::find($r->id)->firstName}}</td>
+                                    <td class='clickable-row' data-href='/rdv/{{$r->id}}'>{{ $r->date }}</td>
+                                    <td class='clickable-row' data-href='/rdv/{{$r->id}}'>{{ $r->time }}</td>
+                                    <td class='clickable-row' data-href='/rdv/{{$r->id}}'>{{ $r->object }}</td>
+                                    <td class='clickable-row' data-href='/rdv/{{$r->id}}'>information médicale</td>
                                     <td class="cell100 column5">{{$r->id}}</td>
                                     
                                     </tr>
@@ -160,7 +160,7 @@ function TableActions2 (value, row, index) {
 function TableActions1 (value, row, index) {
     return [
   
-        '<button class="btn btn-primary"><i class="fa fa-print"></i></button>',
+        '<form action="/rdvs/'+row.id+'/print" method="POST">{{ csrf_field()}}<button type="submit" class="btn btn-primary"><i class="fa fa-print"></i></button></form>',
        
     ].join('');
 }
